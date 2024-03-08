@@ -16,7 +16,24 @@ const logFormat = printf(({ level, message, label, timestamp }) => {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger({
+      // 포맷 설정
+      format: combine(
+        // colorize({
+        //   colors: {
+        //     error: 'red',
+        //     warn: 'yellow',
+        //     info: 'green',
+        //     verbose: 'blue',
+        //     debug: 'porple',
+        //   },
+        // }),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        label({ label: 'App' }),
+        logFormat,
+      ),
+
       transports: [
+        // 콘솔 출력 설정
         new winston.transports.Console({
           level: process.env.NODE_ENV === 'production' ? 'warn' : 'verbose',
           format: combine(
@@ -35,6 +52,7 @@ async function bootstrap() {
           ),
         }),
 
+        // info level 이상 log 파일 생성
         new winstonDaily({
           level: 'info',
           datePattern: 'YYYY-MM-DD',
@@ -44,6 +62,7 @@ async function bootstrap() {
           zippedArchive: true,
         }),
 
+        // error level 이상 error.log 파일 생성
         new winstonDaily({
           level: 'error',
           datePattern: 'YYYY-MM-DD',
