@@ -7,9 +7,15 @@ import { CaptureCardController } from './domain/capture-card/capture-card.contro
 import { CaptureCardModule } from './domain/capture-card/capture-card.module';
 import { UserService } from './domain/user/user.service';
 import { UserModule } from './domain/user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeOrmConfig } from './config/database/typeorm.config';
 
 @Module({
-  imports: [CaptureCardModule, UserModule],
+  imports: [
+    TypeOrmModule.forRoot(typeOrmConfig),
+    CaptureCardModule,
+    UserModule,
+  ],
   controllers: [AppController, CaptureCardController],
   providers: [AppService, Logger, UserService],
 })

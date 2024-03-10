@@ -1,8 +1,19 @@
-import { Column, Entity } from 'typeorm';
-import { CommonEntity } from '../common/common.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
-export class UserEntity extends CommonEntity {
+@Entity({ name: 'users' })
+export class UserEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   username: string;
 
@@ -35,4 +46,25 @@ export class UserEntity extends CommonEntity {
 
   @Column()
   enabled: boolean = false;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  modifiedDate: Date;
+
+  @DeleteDateColumn()
+  deletedDate: Date;
+
+  @JoinColumn()
+  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  createdUser: UserEntity;
+
+  @JoinColumn()
+  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  updatedUser: UserEntity;
+
+  @JoinColumn()
+  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  deletedUser?: UserEntity;
 }

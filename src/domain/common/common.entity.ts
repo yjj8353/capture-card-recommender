@@ -1,6 +1,8 @@
 import {
-  Column,
   CreateDateColumn,
+  DeleteDateColumn,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,9 +18,18 @@ export abstract class CommonEntity {
   @UpdateDateColumn()
   modifiedDate: Date;
 
-  @Column()
+  @DeleteDateColumn()
+  deletedDate: Date;
+
+  @JoinColumn()
+  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
   createdUser: UserEntity;
 
-  @Column()
-  modifiedUser: UserEntity;
+  @JoinColumn()
+  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  updatedUser: UserEntity;
+
+  @JoinColumn()
+  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  deletedUser?: UserEntity;
 }
