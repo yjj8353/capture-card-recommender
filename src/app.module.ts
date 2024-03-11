@@ -9,14 +9,17 @@ import { UserService } from './domain/user/user.service';
 import { UserModule } from './domain/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/database/typeorm.config';
+import { VendorController } from './domain/vendor/vendor.controller';
+import { VendorModule } from './domain/vendor/vendor.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     CaptureCardModule,
     UserModule,
+    VendorModule,
   ],
-  controllers: [AppController, CaptureCardController],
+  controllers: [AppController, CaptureCardController, VendorController],
   providers: [AppService, Logger, UserService],
 })
 export class AppModule implements NestModule {

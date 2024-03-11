@@ -12,13 +12,13 @@ export abstract class CommonEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ comment: '생성된 날짜' })
   createdDate: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ comment: '변경된 날짜' })
   modifiedDate: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ comment: '삭제된 날짜' })
   deletedDate: Date;
 
   @JoinColumn()
