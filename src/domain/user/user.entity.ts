@@ -13,7 +13,7 @@ import {
   name: 'USERS',
   comment: '사용자 정보가 저장되는 테이블',
 })
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn({ name: 'ID' })
   id: number;
 
@@ -84,12 +84,12 @@ export class UserEntity {
   })
   deletedDate: Date;
 
-  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
-  createdUser: UserEntity;
+  @OneToOne(() => User, { lazy: true, eager: false, cascade: false })
+  createdUser: User;
 
-  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
-  updatedUser: UserEntity;
+  @OneToOne(() => User, { lazy: true, eager: false, cascade: false })
+  updatedUser: User;
 
-  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
-  deletedUser?: UserEntity;
+  @OneToOne(() => User, { lazy: true, eager: false, cascade: false })
+  deletedUser?: User;
 }

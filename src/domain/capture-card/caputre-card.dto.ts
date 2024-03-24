@@ -1,16 +1,25 @@
 import { Builder } from 'builder-pattern';
 import { CommonDTO } from '../common/common.dto';
 import { CaptureCard } from './capture-card.entity';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { InterfaceType } from 'src/enum/interface-type.enum';
+import { Vendor } from 'src/enum/vendor.enum';
 
 export class CaptureCardDTO extends CommonDTO {
-  modelCode: string;
+  modelCode?: string;
+
+  @IsNotEmpty()
   modelName: string;
-  supportHDR: boolean;
-  supportVRR: boolean;
+  supportHDR: boolean = false;
+  supportVRR: boolean = false;
   price?: number;
   comeOutDate?: Date;
-  type?: string;
-  vendor?: string;
+
+  @IsEnum(Object.values(InterfaceType))
+  interfaceType?: InterfaceType;
+
+  @IsEnum(Object.values(Vendor))
+  vendor?: Vendor;
 
   constructor(dto: CaptureCardDTO) {
     super();
@@ -27,7 +36,7 @@ export class CaptureCardDTO extends CommonDTO {
     this.supportVRR = dto.supportVRR;
     this.price = dto?.price;
     this.comeOutDate = dto?.comeOutDate;
-    this.type = dto?.type;
+    this.interfaceType = dto?.interfaceType;
     this.vendor = dto?.vendor;
   }
 
@@ -40,6 +49,8 @@ export class CaptureCardDTO extends CommonDTO {
       .supportVRR(this.supportVRR)
       .price(this.price)
       .comeOutDate(this.comeOutDate)
+      .interfaceType(this.interfaceType)
+      .vendor(this.vendor)
       .build();
   }
 }

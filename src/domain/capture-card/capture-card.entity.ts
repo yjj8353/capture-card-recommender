@@ -24,12 +24,14 @@ export class CaptureCard extends CommonEntity {
   @Column({
     name: 'SUPPORT_HDR',
     comment: 'HDR 지원여부',
+    default: false,
   })
   supportHDR: boolean;
 
   @Column({
     name: 'SUPPORT_VRR',
     comment: 'VRR 지원여부',
+    default: false,
   })
   supportVRR: boolean;
 

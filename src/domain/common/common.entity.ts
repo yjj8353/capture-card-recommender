@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { User } from '../user/user.entity';
 
 export abstract class CommonEntity {
   @PrimaryGeneratedColumn({ name: 'ID' })
@@ -24,31 +24,31 @@ export abstract class CommonEntity {
   @JoinColumn({
     name: 'CREATED_USER',
   })
-  @OneToOne(() => UserEntity, {
+  @OneToOne(() => User, {
     lazy: true,
     eager: false,
     cascade: false,
   })
-  createdUser: UserEntity;
+  createdUser: User;
 
   @JoinColumn({
     name: 'MODIFIED_USER',
   })
-  @OneToOne(() => UserEntity, {
+  @OneToOne(() => User, {
     lazy: true,
     eager: false,
     cascade: false,
   })
-  modifiedUser: UserEntity;
+  modifiedUser: User;
 
   @JoinColumn({
     name: 'DELETE_USER',
   })
-  @OneToOne(() => UserEntity, {
+  @OneToOne(() => User, {
     lazy: true,
     eager: false,
     cascade: false,
     nullable: true,
   })
-  deletedUser?: UserEntity;
+  deletedUser?: User;
 }

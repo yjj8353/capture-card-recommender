@@ -4,9 +4,11 @@ import {
   Get,
   ExecutionContext,
   Post,
+  Patch,
 } from '@nestjs/common';
 import { CaptureCardDTO } from './caputre-card.dto';
 import { CaptureCardService } from './capture-card.service';
+import { InterfaceType } from 'src/enum/interface-type.enum';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CaptureCardParams = createParamDecorator(
@@ -43,14 +45,23 @@ export class CaptureCardController {
   constructor(private readonly captureCardService: CaptureCardService) {}
 
   @Get()
-  find(@CaptureCardQuery() captureCard: CaptureCardDTO): string {
+  findCaptureCard(@CaptureCardQuery() captureCard: CaptureCardDTO): string {
     console.debug(captureCard);
     return 'heloo!';
   }
 
   @Post()
-  save(@CaptureCardBody() captureCard: CaptureCardDTO): boolean {
-    this.captureCardService.save(new CaptureCardDTO(captureCard));
+  saveNewCaptureCard(@CaptureCardBody() captureCard: CaptureCardDTO): boolean {
+    console.log(captureCard);
+    console.log(InterfaceType[captureCard.interfaceType]);
+
+    this.captureCardService.saveCaptureCard(new CaptureCardDTO(captureCard));
+    return true;
+  }
+
+  @Patch()
+  updateCaptureCard(@CaptureCardBody() captureCard: CaptureCardDTO): boolean {
+    this.captureCardService.saveCaptureCard(new CaptureCardDTO(captureCard));
     return true;
   }
 }

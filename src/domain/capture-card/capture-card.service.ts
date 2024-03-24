@@ -10,14 +10,16 @@ export class CaptureCardService {
     @InjectRepository(CaptureCard)
     private captureCardRepository: Repository<CaptureCard>,
   ) {}
-  find() {
-    this.captureCardRepository.findOne({
+
+  async findCaptureCard() {
+    this.captureCardRepository.find({
       where: {
         id: 1,
       },
     });
   }
-  async save(captureCardDTO: CaptureCardDTO) {
+
+  async saveCaptureCard(captureCardDTO: CaptureCardDTO) {
     const saveResult = await this.captureCardRepository.save(
       captureCardDTO.toEntity(),
     );

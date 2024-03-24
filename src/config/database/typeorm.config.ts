@@ -3,7 +3,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import { config } from 'dotenv';
 import { CaptureCard } from 'src/domain/capture-card/capture-card.entity';
-import { UserEntity } from 'src/domain/user/user.entity';
+import { User } from 'src/domain/user/user.entity';
 
 config();
 
@@ -15,7 +15,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   autoLoadEntities: true,
-  entities: [CaptureCard, UserEntity],
+  entities: [CaptureCard, User],
   logging: true,
   namingStrategy: new SnakeNamingStrategy(),
   synchronize: true,
