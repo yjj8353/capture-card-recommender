@@ -9,7 +9,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'users' })
+@Entity({
+  // USER라는 이름을 기본 테이블로 사용하는 DB가 있으므로, USERS로 설정
+  name: 'USERS',
+  comment: '사용자 정보가 저장되는 테이블',
+})
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;

@@ -2,7 +2,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import { config } from 'dotenv';
-import { CaptureCardEntity } from 'src/domain/capture-card/capture-card.entity';
+import { CaptureCard } from 'src/domain/capture-card/capture-card.entity';
 import { UserEntity } from 'src/domain/user/user.entity';
 
 config();
@@ -14,7 +14,8 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [CaptureCardEntity, UserEntity],
+  autoLoadEntities: true,
+  entities: [CaptureCard, UserEntity],
   logging: true,
   namingStrategy: new SnakeNamingStrategy(),
   synchronize: true,

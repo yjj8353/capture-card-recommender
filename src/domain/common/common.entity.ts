@@ -9,27 +9,46 @@ import {
 import { UserEntity } from '../user/user.entity';
 
 export abstract class CommonEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'ID' })
   id: number;
 
-  @CreateDateColumn({ comment: '생성된 날짜' })
+  @CreateDateColumn({ name: 'CREATE_DATE', comment: '생성된 날짜' })
   createdDate: Date;
 
-  @UpdateDateColumn({ comment: '변경된 날짜' })
+  @UpdateDateColumn({ name: 'MODIFIED_DATE', comment: '변경된 날짜' })
   modifiedDate: Date;
 
-  @DeleteDateColumn({ comment: '삭제된 날짜' })
+  @DeleteDateColumn({ name: 'DELETED_DATE', comment: '삭제된 날짜' })
   deletedDate: Date;
 
-  @JoinColumn()
-  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  @JoinColumn({
+    name: 'CREATED_USER',
+  })
+  @OneToOne(() => UserEntity, {
+    lazy: true,
+    eager: false,
+    cascade: false,
+  })
   createdUser: UserEntity;
 
-  @JoinColumn()
-  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
-  updatedUser: UserEntity;
+  @JoinColumn({
+    name: 'MODIFIED_USER',
+  })
+  @OneToOne(() => UserEntity, {
+    lazy: true,
+    eager: false,
+    cascade: false,
+  })
+  modifiedUser: UserEntity;
 
-  @JoinColumn()
-  @OneToOne(() => UserEntity, { lazy: true, eager: false, cascade: false })
+  @JoinColumn({
+    name: 'DELETE_USER',
+  })
+  @OneToOne(() => UserEntity, {
+    lazy: true,
+    eager: false,
+    cascade: false,
+    nullable: true,
+  })
   deletedUser?: UserEntity;
 }
